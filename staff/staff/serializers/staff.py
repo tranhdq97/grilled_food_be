@@ -9,12 +9,12 @@ from base.common.utils.serializer import ForeignKeyField
 from base.common.utils.strings import check_regex
 from base.master.models import MasterStaffType
 from base.master.serializers.base import MasterBaseSlz
-from base.profile.models import Profile
 from base.staff.models.staff import Staff
 from ...profile.serializers.profile import (
     ProfileRetrieveSlz,
     ProfileForUserListSlz,
     ProfileUpdateSlz,
+    ProfileCreateSlz,
 )
 
 
@@ -69,13 +69,18 @@ class StaffUpdateSlz(StaffBaseSlz):
     def update(self, instance, validated_data):
         with transaction.atomic():
             profile_data = validated_data.get(UserFields.PROFILE, {})
-            type_id = validated_data.get(UserFields.TYPE_ID)
+            type_id = validated_data.get(CommonFields.TYPE_ID)
+            if profile_data:
+                if instance.profile:
+                    slz = ProfileUpdateSlz(instance=instance.profile, data=profile_data)
+                else:
+                    slz = ProfileCreateSlz(data=dict(profile_data))
+                slz.is_valid(raise_exception=True)
+                slz.save()
+                if not instance.profile_id:
+                    instance.profile_id = slz.data.get(CommonFields.ID)
             if type_id:
                 instance.type_id = type_id
-            for key, value in profile_data.items():
-                setattr(instance.profile, key, value)
-            if instance.profile:
-                instance.profile.save()
             instance.save()
             return instance
 
@@ -83,14 +88,12 @@ class StaffUpdateSlz(StaffBaseSlz):
 class StaffCreateSlz(StaffBaseSlz):
     email = serializers.EmailField(required=True)
     password = serializers.CharField(required=True, write_only=True)
-    profile_id = ForeignKeyField(Profile, required=False)
 
     class Meta:
         model = StaffBaseSlz.Meta.model
         fields = StaffBaseSlz.Meta.fields + (
             UserFields.EMAIL,
             UserFields.PASSWORD,
-            UserFields.PROFILE_ID,
         )
 
     def validate(self, attrs):

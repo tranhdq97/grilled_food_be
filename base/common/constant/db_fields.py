@@ -2,6 +2,7 @@ from base.common.utils.utils import BaseEnum
 
 
 class CommonFields(str, BaseEnum):
+    PK = "pk"
     ID = "id"
     USER = "user"
     NAME = "name"

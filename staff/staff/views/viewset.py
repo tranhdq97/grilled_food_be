@@ -4,9 +4,14 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import GenericViewSet
 
-from base.auth.permissions.permission import IsStaff, IsSuperStaff, IsManager
+from base.auth.permissions.permission import (
+    IsStaff,
+    IsSuperStaff,
+    IsManager,
+    IsApproved,
+)
 from base.common.constant import message
-from base.common.constant.db_fields import UserFields
+from base.common.constant.db_fields import CommonFields
 from base.common.constant.master import MasterStaffTypeID
 from base.common.constant.view_action import BaseViewAction
 from base.common.custom.pagination import CustomPagination
@@ -55,7 +60,7 @@ class StaffViewSet(
     def get_permissions(self):
         perm_switcher = {
             BaseViewAction.CREATE: (AllowAny,),
-            BaseViewAction.UPDATE: (IsSuperStaff | IsManager,),
+            BaseViewAction.UPDATE: (IsStaff,),
             BaseViewAction.RETRIEVE: (IsStaff,),
             BaseViewAction.LIST: (IsSuperStaff | IsManager,),
             BaseViewAction.DESTROY: (IsSuperStaff,),
@@ -69,8 +74,9 @@ class StaffViewSet(
         return super().get_permissions()
 
     def update(self, request, *args, **kwargs):
-        type_id = request.data.get(UserFields.TYPE_ID)
-        if type_id == MasterStaffTypeID.SUPER_STAFF or request.user.type_id == type_id:
+        type_id = request.data.get(CommonFields.TYPE_ID)
+        invalid_update = request.user.id != kwargs.get(CommonFields.PK)
+        if invalid_update or MasterStaffTypeID.is_manager_or_super_staff(type_id):
             raise APIErr(message.PERMISSION_DENIED)
 
         return super().update(request, *args, **kwargs)
