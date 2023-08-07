@@ -1,0 +1,16 @@
+Django~=4.1.7
+django-environ~=0.10.0
+django-cors-headers~=3.14.0
+djangorestframework~=3.14.0
+markdown~=3.4.1
+django-filter~=22.1
+djangorestframework-simplejwt~=5.2.2
+mysqlclient~=2.1.1
+drf-spectacular~=0.26.0
+drf_writable_nested~=0.7.0
+whitenoise~=6.4.0
+django-crum~=0.7.9
+gunicorn~=20.1.0
+pillow~=9.4.0
+boto3~=1.26.84
+django-storages~=1.13.2
