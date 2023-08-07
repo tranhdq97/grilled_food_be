@@ -1,13 +1,13 @@
 [
     {
-        "model": "master.MasterMenuType",
+        "model": "master.MasterItemType",
         "fields": {
           "id": 1,
           "name": "Meals"
         }
     },
     {
-        "model": "master.MasterMenuType",
+        "model": "master.MasterItemType",
         "fields": {
           "id": 2,
           "name": "Drinks"

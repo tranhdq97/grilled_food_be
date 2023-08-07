@@ -4,7 +4,6 @@ from rest_framework.viewsets import GenericViewSet
 
 from base.auth.permissions.permission import (
     IsStaff,
-    IsApproved,
     IsSuperStaff,
     IsManager,
 )
@@ -14,8 +13,6 @@ from base.common.utils.exceptions import PermissionDenied, APIErr
 from base.profile.models import Profile
 from staff.profile.serializers.profile import (
     ProfileRetrieveSlz,
-    ProfileCreateSlz,
-    ProfileUpdateSlz,
 )
 
 
@@ -32,8 +29,6 @@ class ProfileViewSet(
 
     def get_serializer_class(self):
         slz_switcher = {
-            BaseViewAction.CREATE: ProfileCreateSlz,
-            BaseViewAction.UPDATE: ProfileUpdateSlz,
             BaseViewAction.RETRIEVE: ProfileRetrieveSlz,
         }
         slz = slz_switcher.get(self.action, self.serializer_class)
@@ -44,8 +39,6 @@ class ProfileViewSet(
 
     def get_permissions(self):
         perm_switcher = {
-            BaseViewAction.CREATE: (IsStaff,),
-            BaseViewAction.UPDATE: (IsStaff,),
             BaseViewAction.DESTROY: (IsManager | IsSuperStaff,),
             BaseViewAction.RETRIEVE: (IsStaff,),
         }

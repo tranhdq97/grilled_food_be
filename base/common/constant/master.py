@@ -7,6 +7,10 @@ class MasterStaffTypeID(int, BaseEnum):
     EMPLOYEE = 3
     UNAPPROVED = 4
 
+    @classmethod
+    def is_manager_or_super_staff(cls, staff_type: int) -> bool:
+        return staff_type in (cls.MANAGER, cls.SUPER_STAFF)
+
 
 class MasterFilterByID(int, BaseEnum):
     TODAY = 1

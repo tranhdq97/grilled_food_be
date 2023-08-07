@@ -7,7 +7,7 @@ class ModelAppLabel(str, BaseEnum):
     STAFF = "staff"
     CUSTOMER = "customer"
     FILE_MANAGEMENT = "file_management"
-    MENU = "menu"
+    ITEM = "item"
     ORDER = "order"
     ORDER_ITEM = "order_item"
     ADDRESS = "address"

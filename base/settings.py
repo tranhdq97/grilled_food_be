@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "base.address",
     "base.profile",
     "base.staff",
+    "base.item",
 ]
 
 MIDDLEWARE = [
