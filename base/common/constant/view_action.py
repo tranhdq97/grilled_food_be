@@ -7,3 +7,8 @@ class BaseViewAction(str, BaseEnum):
     CREATE = "create"
     UPDATE = "update"
     DESTROY = "destroy"
+
+
+class TableExtraViewAction(str, BaseEnum):
+    STAFF_IN = "update_staff_in"
+    STAFF_OUT = "update_staff_out"

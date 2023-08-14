@@ -8,7 +8,6 @@ from base.auth.permissions.permission import (
     IsStaff,
     IsSuperStaff,
     IsManager,
-    IsApproved,
 )
 from base.common.constant import message
 from base.common.constant.db_fields import CommonFields
@@ -17,12 +16,12 @@ from base.common.constant.view_action import BaseViewAction
 from base.common.custom.pagination import CustomPagination
 from base.common.utils.exceptions import PermissionDenied, APIErr
 from base.staff.models import Staff
+from base.staff.serializers.staff import StaffRetrieveSlz
 from staff.staff.filters.staff import StaffListQueryFields
 from staff.staff.serializers.staff import (
     StaffListSlz,
     StaffCreateSlz,
     StaffUpdateSlz,
-    StaffRetrieveSlz,
 )
 
 
