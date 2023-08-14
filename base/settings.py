@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "base.staff",
     "base.item",
     "base.table",
+    "base.order",
 ]
 
 MIDDLEWARE = [

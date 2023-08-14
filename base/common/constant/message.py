@@ -31,3 +31,4 @@ PASSWORD_INAPPROPRIATE = _(
     "Password must contain at least 7 letters, one digit, one lowercase letter, one uppercase letter"
 )
 PASSWORD_MUST_DIFFER_EMAIL = _("Password must differ email address")
+NOT_AVAILABLE = _("Not available")
