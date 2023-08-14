@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "base.profile",
     "base.staff",
     "base.item",
+    "base.table",
 ]
 
 MIDDLEWARE = [

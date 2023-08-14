@@ -72,6 +72,7 @@ class ItemFields(str, BaseEnum):
 
 class TableFields(str, BaseEnum):
     IN_TABLE_STAFF = "in_table_staff"
+    IN_TABLE_STAFF_ID = "in_table_staff_id"
     IS_AVAILABLE = "is_available"
 
 

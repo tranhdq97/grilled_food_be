@@ -9,35 +9,12 @@ from base.common.utils.serializer import ForeignKeyField
 from base.common.utils.strings import check_regex
 from base.master.models import MasterStaffType
 from base.master.serializers.base import MasterBaseSlz
-from base.staff.models.staff import Staff
+from base.staff.serializers.staff import StaffBaseSlz
 from ...profile.serializers.profile import (
-    ProfileRetrieveSlz,
     ProfileForUserListSlz,
     ProfileUpdateSlz,
     ProfileCreateSlz,
 )
-
-
-class StaffBaseSlz(serializers.ModelSerializer):
-    class Meta:
-        model = Staff
-        fields = (CommonFields.ID, UserFields.EMAIL)
-
-
-class StaffRetrieveSlz(StaffBaseSlz):
-    type = MasterBaseSlz()
-    profile = ProfileRetrieveSlz()
-
-    class Meta:
-        model = StaffBaseSlz.Meta.model
-        fields = (
-            StaffBaseSlz.Meta.fields
-            + (UserFields.PROFILE,)
-            + (
-                CommonFields.TYPE,
-                CommonFields.UPDATED_AT,
-            )
-        )
 
 
 class StaffListSlz(StaffBaseSlz):
