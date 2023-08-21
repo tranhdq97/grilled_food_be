@@ -49,16 +49,12 @@ class MasterViewSet(
             BaseViewAction.DESTROY: (IsSuperStaff | IsManager,),
             BaseViewAction.CREATE: (IsSuperStaff | IsManager,),
         }
-        self.permission_classes = perm_switcher.get(
-            self.action, self.permission_classes
-        )
+        self.permission_classes = perm_switcher.get(self.action, self.permission_classes)
         if self.permission_classes is None:
             raise PermissionDenied()
         return super().get_permissions()
 
-    @extend_schema(
-        description=f'Choices: {" | ".join(Master.list(allowed_to_create=False))}'
-    )
+    @extend_schema(description=f'Choices: {" | ".join(Master.list(allowed_to_create=False))}')
     def destroy(self, request, *args, **kwargs):
         master_name = kwargs.pop("_".join([DBTable.MASTER, MasterFields.NAME]))
         pk = kwargs.pop(CommonFields.ID)
@@ -84,9 +80,7 @@ class MasterViewSet(
         serializer = service.slz(qs, many=True)
         return Response(serializer.data)
 
-    @extend_schema(
-        description=f'Choices: {" | ".join(Master.list(allowed_to_create=True))}'
-    )
+    @extend_schema(description=f'Choices: {" | ".join(Master.list(allowed_to_create=True))}')
     def create(self, request, **kwargs):
         master_name = kwargs.pop("_".join([DBTable.MASTER, MasterFields.NAME]))
         service = MasterBaseService(master_name)
