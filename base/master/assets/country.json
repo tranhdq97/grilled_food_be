@@ -1,0 +1,10 @@
+[
+  {
+    "model": "master.MasterCountry",
+    "fields": {
+      "id": 1,
+      "name": "Việt Nam",
+      "code": "vi"
+    }
+  }
+]

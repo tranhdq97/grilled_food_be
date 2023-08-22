@@ -1,0 +1,16 @@
+[
+    {
+        "model": "master.MasterSex",
+        "fields": {
+          "id": 1,
+          "name": "Male"
+        }
+    },
+    {
+        "model": "master.MasterSex",
+        "fields": {
+          "id": 2,
+          "name": "Female"
+        }
+    }
+]
