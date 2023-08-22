@@ -32,9 +32,7 @@ def custom_exception_handler(exc, context):
 
         data = {
             "status_code": exc.default_code,
-            "message": exc.default_detail
-            if isinstance(exc.detail, (list, dict))
-            else exc.detail,
+            "message": exc.default_detail if isinstance(exc.detail, (list, dict)) else exc.detail,
             "detail": exc.detail,
         }
         set_rollback()

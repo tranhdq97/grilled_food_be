@@ -10,9 +10,7 @@ from base.profile.models import Profile
 
 class Staff(CustomBaseUserModel):
     is_admin = models.BooleanField(default=False)
-    profile = models.OneToOneField(
-        Profile, on_delete=models.RESTRICT, null=True, related_name=DBTable.STAFF
-    )
+    profile = models.OneToOneField(Profile, on_delete=models.RESTRICT, null=True, related_name=DBTable.STAFF)
     type = models.ForeignKey(
         MasterStaffType,
         on_delete=models.RESTRICT,

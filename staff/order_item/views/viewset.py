@@ -4,24 +4,23 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import GenericViewSet
 
-from base.auth.permissions.permission import IsSuperStaff, IsManager
+from base.auth.permissions.permission import IsSuperStaff, IsApproved
 from base.common.constant.view_action import BaseViewAction
 from base.common.custom.pagination import CustomPagination
 from base.common.utils.exceptions import PermissionDenied
-from base.item.models import Item
-from staff.item.filters.item import ItemListQueryFields
-from staff.item.serializers.item import (
-    ItemListSlz,
-    ItemRetrieveSlz,
-    ItemCreateSlz,
-    ItemUpdateSlz,
+from base.order_item.models import OrderItem
+from staff.order_item.filters.order_item import (
+    OrderItemListQueryFields,
+    OrderItemFilter,
+)
+from staff.order_item.serializers.order_item import (
+    OrderItemListSlz,
+    OrderItemRetrieveSlz,
 )
 
 
-class ItemViewSet(
+class OrderItemViewSet(
     mixins.ListModelMixin,
-    mixins.CreateModelMixin,
-    mixins.UpdateModelMixin,
     mixins.RetrieveModelMixin,
     mixins.DestroyModelMixin,
     GenericViewSet,
@@ -29,29 +28,26 @@ class ItemViewSet(
     permission_classes = (AllowAny,)
     pagination_class = CustomPagination
     filter_backends = (DjangoFilterBackend, OrderingFilter, SearchFilter)
-    serializer_class = ItemListSlz
-    queryset = Item.objects.all()
-    search_fields = ItemListQueryFields.SEARCH_FIELDS
-    ordering_fields = ItemListQueryFields.ORDER_FIELDS
-    ordering = ItemListQueryFields.ORDER_DEFAULT_FIELD
-    filterset_fields = ItemListQueryFields.FILTERSET_FIELDS
+    serializer_class = OrderItemListSlz
+    queryset = OrderItem.objects.all()
+    search_fields = OrderItemListQueryFields.SEARCH_FIELDS
+    ordering_fields = OrderItemListQueryFields.ORDER_FIELDS
+    ordering = OrderItemListQueryFields.ORDER_DEFAULT_FIELD
+    filterset_fields = OrderItemListQueryFields.FILTERSET_FIELDS
+    filterset_class = OrderItemFilter
 
     def get_serializer_class(self):
         slz_switcher = {
-            BaseViewAction.LIST: ItemListSlz,
-            BaseViewAction.RETRIEVE: ItemRetrieveSlz,
-            BaseViewAction.CREATE: ItemCreateSlz,
-            BaseViewAction.UPDATE: ItemUpdateSlz,
+            BaseViewAction.LIST: OrderItemListSlz,
+            BaseViewAction.RETRIEVE: OrderItemRetrieveSlz,
         }
         slz = slz_switcher.get(self.action, self.serializer_class)
         return slz
 
     def get_permissions(self):
         perm_switcher = {
-            BaseViewAction.LIST: (AllowAny,),
-            BaseViewAction.RETRIEVE: (AllowAny,),
-            BaseViewAction.CREATE: (IsManager | IsSuperStaff,),
-            BaseViewAction.UPDATE: (IsManager | IsSuperStaff,),
+            BaseViewAction.LIST: (IsApproved,),
+            BaseViewAction.RETRIEVE: (IsApproved,),
             BaseViewAction.DESTROY: (IsSuperStaff,),
         }
         self.permission_classes = perm_switcher.get(self.action, self.permission_classes)

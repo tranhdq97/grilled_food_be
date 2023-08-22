@@ -9,9 +9,7 @@ def log(func):
     def inner(*args, **kwargs):
         result = func(*args, **kwargs)
         logger.info(f"{func_name}")
-        logger.debug(
-            f'{func_name} | args: {locals().get("args")} | kwargs: {locals().get("kwargs")}'
-        )
+        logger.debug(f'{func_name} | args: {locals().get("args")} | kwargs: {locals().get("kwargs")}')
         return result
 
     return inner

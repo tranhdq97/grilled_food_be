@@ -10,9 +10,7 @@ from base.master.models.country import MasterCountry
 
 class MasterCity(MasterBaseModel):
     name = models.CharField(max_length=32, unique=False)
-    country = ForeignKey(
-        MasterCountry, on_delete=models.RESTRICT, related_name=DBTable.MASTER_CITY
-    )
+    country = ForeignKey(MasterCountry, on_delete=models.RESTRICT, related_name=DBTable.MASTER_CITY)
 
     class Meta:
         db_table = DBTable.MASTER_CITY

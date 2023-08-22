@@ -8,9 +8,7 @@ from base.master.models import MasterDistrict
 
 
 class Address(DateTimeModel):
-    district = ForeignKey(
-        MasterDistrict, on_delete=models.RESTRICT, related_name=DBTable.MASTER_DISTRICT
-    )
+    district = ForeignKey(MasterDistrict, on_delete=models.RESTRICT, related_name=DBTable.MASTER_DISTRICT)
     street = models.CharField(max_length=255, null=True)
 
     class Meta:

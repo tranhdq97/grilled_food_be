@@ -81,11 +81,12 @@ class OrderFields(str, BaseEnum):
     TABLE_ID = "table_id"
     PAID_AT = "paid_at"
     NUM_PEOPLE = "num_people"
+    ORDER_ITEMS = "order_items"
 
 
 class OrderItemFields(str, BaseEnum):
     ORDER = "order"
     ORDER_ID = "order_id"
-    ITEM = "menu"
-    ITEM_ID = "menu_id"
+    ITEM = "item"
+    ITEM_ID = "item_id"
     QUANTITY = "quantity"

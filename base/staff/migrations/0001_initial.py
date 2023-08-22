@@ -31,18 +31,14 @@ class Migration(migrations.Migration):
                 ("password", models.CharField(max_length=128, verbose_name="password")),
                 (
                     "last_login",
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name="last login"
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name="last login"),
                 ),
                 ("is_deleted", models.BooleanField(default=False)),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("updated_at", models.DateTimeField(auto_now=True)),
                 (
                     "email",
-                    models.EmailField(
-                        max_length=255, unique=True, verbose_name="email address"
-                    ),
+                    models.EmailField(max_length=255, unique=True, verbose_name="email address"),
                 ),
                 ("is_active", models.BooleanField(default=True)),
                 ("is_leave", models.BooleanField(default=False)),
@@ -59,9 +55,7 @@ class Migration(migrations.Migration):
                 (
                     "type",
                     models.ForeignKey(
-                        default=base.common.constant.master.MasterStaffTypeID[
-                            "UNAPPROVED"
-                        ],
+                        default=base.common.constant.master.MasterStaffTypeID["UNAPPROVED"],
                         on_delete=django.db.models.deletion.RESTRICT,
                         related_name=base.common.constant.db_table.DBTable["STAFF"],
                         to="master.masterstafftype",
