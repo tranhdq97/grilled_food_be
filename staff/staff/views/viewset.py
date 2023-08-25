@@ -70,10 +70,18 @@ class StaffViewSet(
 
         return super().get_permissions()
 
-    def update(self, request, *args, **kwargs):
-        type_id = request.data.get(CommonFields.TYPE_ID)
-        invalid_update = request.user.id != kwargs.get(CommonFields.PK)
-        if invalid_update or MasterStaffTypeID.is_manager_or_super_staff(type_id):
+    @staticmethod
+    def _validate_user(request, **kwargs):
+        user = request.user
+        self_update = user.id == kwargs.get(CommonFields.PK)
+        is_manager = MasterStaffTypeID.is_manager_or_super_staff(staff_type=user.type_id)
+        if not (self_update or is_manager):
             raise APIErr(message.PERMISSION_DENIED)
 
+    def update(self, request, *args, **kwargs):
+        self._validate_user(request=request, **kwargs)
         return super().update(request, *args, **kwargs)
+
+    def retrieve(self, request, *args, **kwargs):
+        self._validate_user(request=request, **kwargs)
+        return super().create(request, *args, **kwargs)

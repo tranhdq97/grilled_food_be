@@ -52,6 +52,7 @@ class ProfileFields(str, BaseEnum):
     SEX_ID = "sex_id"
     ADDRESS = "address"
     ADDRESS_ID = "address_id"
+    CITIZEN_NUMBER = "citizen_number"
 
 
 class UserFields(str, BaseEnum):

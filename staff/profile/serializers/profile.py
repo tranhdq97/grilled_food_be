@@ -17,6 +17,7 @@ class ProfileBaseSlz(serializers.ModelSerializer):
             ProfileFields.PHONE_NUMBER,
             ProfileFields.LAST_NAME,
             ProfileFields.FIRST_NAME,
+            ProfileFields.CITIZEN_NUMBER,
         )
 
 

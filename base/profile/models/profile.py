@@ -12,6 +12,7 @@ class Profile(DateTimeModel):
     first_name = models.CharField(max_length=32, null=True)
     last_name = models.CharField(max_length=32, null=True)
     dob = models.DateField(null=True)
+    citizen_number = models.CharField(max_length=12, null=False, unique=True)
     address = models.ForeignKey(Address, on_delete=models.RESTRICT, null=True, related_name=DBTable.PROFILE)
     sex = models.ForeignKey(MasterSex, on_delete=models.RESTRICT, null=True, related_name=DBTable.PROFILE)
 
