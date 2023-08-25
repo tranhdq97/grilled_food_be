@@ -4,6 +4,7 @@ from rest_framework import serializers
 from base.common.constant import message
 from base.common.constant.constant import RegexPattern
 from base.common.constant.db_fields import CommonFields, UserFields
+from base.common.constant.master import MasterStaffTypeID
 from base.common.utils.exceptions import APIErr
 from base.common.utils.serializer import ForeignKeyField
 from base.common.utils.strings import check_regex
@@ -56,7 +57,11 @@ class StaffUpdateSlz(StaffBaseSlz):
                 slz.save()
                 if not instance.profile_id:
                     instance.profile_id = slz.data.get(CommonFields.ID)
-            if type_id:
+            if (
+                type_id
+                and MasterStaffTypeID.is_manager_or_super_staff(staff_type=type_id)
+                and type_id > instance.type_id
+            ):
                 instance.type_id = type_id
             instance.save()
             return instance

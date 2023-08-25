@@ -107,9 +107,7 @@ class Migration(migrations.Migration):
                     "country",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.RESTRICT,
-                        related_name=base.common.constant.db_table.DBTable[
-                            "MASTER_CITY"
-                        ],
+                        related_name=base.common.constant.db_table.DBTable["MASTER_CITY"],
                         to="master.mastercountry",
                     ),
                 ),
@@ -143,9 +141,7 @@ class Migration(migrations.Migration):
                     "city",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.RESTRICT,
-                        related_name=base.common.constant.db_table.DBTable[
-                            "MASTER_DISTRICT"
-                        ],
+                        related_name=base.common.constant.db_table.DBTable["MASTER_DISTRICT"],
                         to="master.mastercity",
                     ),
                 ),
