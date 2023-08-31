@@ -15,8 +15,6 @@ class OrderItemBaseSlz(serializers.ModelSerializer):
         quantity = self.instance and self.instance.quantity
         if quantity is not None and quantity < 1:
             raise APIErr(message.INVALID_INPUT)
-        if quantity is not None:
-            raise APIErr(message.INVALID_INPUT)
 
         return attrs
 

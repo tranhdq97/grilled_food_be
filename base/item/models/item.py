@@ -9,7 +9,9 @@ from base.master.models import MasterItemType
 
 class Item(DateTimeModel, Creator, Editor):
     name = models.CharField(max_length=10)
-    type = models.ForeignKey(MasterItemType, on_delete=models.RESTRICT, related_name=DBTable.ITEM)
+    type = models.ForeignKey(
+        MasterItemType, on_delete=models.RESTRICT, related_name=DBTable.ITEM
+    )
     price = models.IntegerField()
 
     class Meta:

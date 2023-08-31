@@ -9,7 +9,9 @@ from base.staff.models import Staff
 class Table(DateTimeModel, Creator, Editor):
     name = models.CharField(max_length=32)
     is_available = models.BooleanField(default=True)
-    in_table_staff = models.ForeignKey(Staff, on_delete=models.RESTRICT, related_name=DBTable.TABLE, null=True)
+    in_table_staff = models.ForeignKey(
+        Staff, on_delete=models.RESTRICT, related_name=DBTable.TABLE, null=True
+    )
 
     class Meta:
         db_table = DBTable.TABLE

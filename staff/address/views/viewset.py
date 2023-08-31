@@ -63,7 +63,9 @@ class AddressViewSet(
             BaseViewAction.RETRIEVE: (IsStaff,),
             BaseViewAction.LIST: (IsStaff,),
         }
-        self.permission_classes = perm_switcher.get(self.action, self.permission_classes)
+        self.permission_classes = perm_switcher.get(
+            self.action, self.permission_classes
+        )
         if self.permission_classes is None:
             raise PermissionDenied()
 

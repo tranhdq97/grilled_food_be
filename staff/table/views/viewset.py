@@ -9,6 +9,8 @@ from base.auth.permissions.permission import IsSuperStaff, IsManager, IsApproved
 from base.common.constant.view_action import BaseViewAction, TableExtraViewAction
 from base.common.custom.pagination import CustomPagination
 from base.common.utils.exceptions import PermissionDenied
+from base.order.models import Order
+from base.order_item.models import OrderItem
 from base.table.models import Table
 from staff.table.filters.table import TableListQueryFields
 from staff.table.serializers.table import (
@@ -59,7 +61,9 @@ class TableViewSet(
             BaseViewAction.DESTROY: (IsSuperStaff,),
             TableExtraViewAction.STAFF_IN: (IsApproved,),
         }
-        self.permission_classes = perm_switcher.get(self.action, self.permission_classes)
+        self.permission_classes = perm_switcher.get(
+            self.action, self.permission_classes
+        )
         if self.permission_classes is None:
             raise PermissionDenied()
 
@@ -78,3 +82,14 @@ class TableViewSet(
         instance.save()
         slz = self.get_serializer(instance)
         return Response(data=slz.data)
+
+    def order_items(self, request, pk=None):
+        order = Order.objects.filter(table_id=pk, paid_at__isnull=True).first()
+        if not order:
+            return Response(status=404)
+        order_items = (
+            OrderItem.objects.filter(order_id=order.id, is_deleted=0)
+            .select_related("item")
+            .values("id", "quantity", "item__name", "item__id", "item__price")
+        )
+        return Response(order_items)

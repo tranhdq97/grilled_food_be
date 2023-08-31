@@ -16,6 +16,7 @@ from staff.order_item.filters.order_item import (
 from staff.order_item.serializers.order_item import (
     OrderItemListSlz,
     OrderItemRetrieveSlz,
+    OrderItemUpdateSlz,
 )
 
 
@@ -23,6 +24,7 @@ class OrderItemViewSet(
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
     mixins.DestroyModelMixin,
+    mixins.UpdateModelMixin,
     GenericViewSet,
 ):
     permission_classes = (AllowAny,)
@@ -40,6 +42,7 @@ class OrderItemViewSet(
         slz_switcher = {
             BaseViewAction.LIST: OrderItemListSlz,
             BaseViewAction.RETRIEVE: OrderItemRetrieveSlz,
+            BaseViewAction.UPDATE: OrderItemUpdateSlz,
         }
         slz = slz_switcher.get(self.action, self.serializer_class)
         return slz
@@ -50,7 +53,9 @@ class OrderItemViewSet(
             BaseViewAction.RETRIEVE: (IsApproved,),
             BaseViewAction.DESTROY: (IsSuperStaff,),
         }
-        self.permission_classes = perm_switcher.get(self.action, self.permission_classes)
+        self.permission_classes = perm_switcher.get(
+            self.action, self.permission_classes
+        )
         if self.permission_classes is None:
             raise PermissionDenied()
 

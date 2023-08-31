@@ -64,7 +64,9 @@ class StaffViewSet(
             BaseViewAction.LIST: (IsSuperStaff | IsManager,),
             BaseViewAction.DESTROY: (IsSuperStaff,),
         }
-        self.permission_classes = perm_switcher.get(self.action, self.permission_classes)
+        self.permission_classes = perm_switcher.get(
+            self.action, self.permission_classes
+        )
         if self.permission_classes is None:
             raise PermissionDenied()
 
@@ -74,7 +76,9 @@ class StaffViewSet(
     def _validate_user(request, **kwargs):
         user = request.user
         current_user = user.id == kwargs.get(CommonFields.PK)
-        is_manager = MasterStaffTypeID.is_manager_or_super_staff(staff_type=user.type_id)
+        is_manager = MasterStaffTypeID.is_manager_or_super_staff(
+            staff_type=user.type_id
+        )
         if not (current_user or is_manager):
             raise APIErr(message.PERMISSION_DENIED)
 

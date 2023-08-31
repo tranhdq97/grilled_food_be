@@ -33,7 +33,9 @@ class Migration(migrations.Migration):
                     "district",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.RESTRICT,
-                        related_name=base.common.constant.db_table.DBTable["MASTER_DISTRICT"],
+                        related_name=base.common.constant.db_table.DBTable[
+                            "MASTER_DISTRICT"
+                        ],
                         to="master.masterdistrict",
                     ),
                 ),

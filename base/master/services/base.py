@@ -17,7 +17,9 @@ from ...master.serializers.district import MasterDistrictSlz
 
 class MasterBaseService:
     def __init__(self, master_name):
-        self.table_name, self.model_name, self.allowed_to_create = Master.unpack(master_name)
+        self.table_name, self.model_name, self.allowed_to_create = Master.unpack(
+            master_name
+        )
         self.model = apps.get_model(ModelAppLabel.MASTER, self.model_name)
         slz_switcher = {
             DBTable.MASTER_COUNTRY: MasterCountrySlz,

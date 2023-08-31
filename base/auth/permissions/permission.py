@@ -10,19 +10,31 @@ class IsStaff(IsAuthenticated):
 
 class IsEmployee(IsStaff):
     def has_permission(self, request, view):
-        return super().has_permission(request, view) and request.user.type_id == MasterStaffTypeID.EMPLOYEE
+        return (
+            super().has_permission(request, view)
+            and request.user.type_id == MasterStaffTypeID.EMPLOYEE
+        )
 
 
 class IsManager(IsStaff):
     def has_permission(self, request, view):
-        return super().has_permission(request, view) and request.user.type_id == MasterStaffTypeID.MANAGER
+        return (
+            super().has_permission(request, view)
+            and request.user.type_id == MasterStaffTypeID.MANAGER
+        )
 
 
 class IsSuperStaff(IsStaff):
     def has_permission(self, request, view):
-        return super().has_permission(request, view) and request.user.type_id == MasterStaffTypeID.SUPER_STAFF
+        return (
+            super().has_permission(request, view)
+            and request.user.type_id == MasterStaffTypeID.SUPER_STAFF
+        )
 
 
 class IsApproved(IsStaff):
     def has_permission(self, request, view):
-        return super().has_permission(request, view) and request.user.type_id != MasterStaffTypeID.UNAPPROVED
+        return (
+            super().has_permission(request, view)
+            and request.user.type_id != MasterStaffTypeID.UNAPPROVED
+        )
