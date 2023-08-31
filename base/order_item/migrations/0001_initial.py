@@ -54,7 +54,9 @@ class Migration(migrations.Migration):
                     "order",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.RESTRICT,
-                        related_name=base.common.constant.db_table.DBTable["ORDER_ITEM"],
+                        related_name=base.common.constant.db_table.DBTable[
+                            "ORDER_ITEM"
+                        ],
                         to="order.order",
                     ),
                 ),

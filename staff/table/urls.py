@@ -17,4 +17,8 @@ urlpatterns = [
         "<int:pk>/staff_out",
         TableViewSet.as_view({"put": TableExtraViewAction.STAFF_OUT}),
     ),
+    path(
+        "<int:pk>/order_items",
+        TableViewSet.as_view({"get": TableExtraViewAction.ORDER_ITEMS}),
+    ),
 ]

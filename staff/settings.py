@@ -9,4 +9,6 @@ WSGI_APPLICATION = "staff.wsgi.application"
 # ---------------------------------------------------------------------------- #
 SPECTACULAR_SETTINGS["TITLE"] = "Staff Api"
 
-REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = ["base.auth.permissions.permission.IsStaff"]
+REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = [
+    "base.auth.permissions.permission.IsStaff"
+]

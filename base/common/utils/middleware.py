@@ -35,7 +35,8 @@ class CorrelationMiddleware:
         set_req_uuid(req_uuid)
         response = self.get_response(request)
         logger.debug(
-            f"END   | path={request.path} | status={response.status_code} | " + f"| user_logged={request.user}"
+            f"END   | path={request.path} | status={response.status_code} | "
+            + f"| user_logged={request.user}"
         )
         del_req_uuid()
         return response
