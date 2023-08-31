@@ -59,7 +59,9 @@ class OrderViewSet(
             BaseViewAction.DESTROY: (IsSuperStaff,),
             OrderExtraViewAction.ORDER: (IsApproved,),
         }
-        self.permission_classes = perm_switcher.get(self.action, self.permission_classes)
+        self.permission_classes = perm_switcher.get(
+            self.action, self.permission_classes
+        )
         if self.permission_classes is None:
             raise PermissionDenied()
 

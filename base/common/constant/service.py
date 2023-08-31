@@ -16,7 +16,9 @@ class Master(BaseEnum):
 
     @staticmethod
     def list(allowed_to_create: bool = False) -> list:
-        master_list = list(filter(lambda c: (allowed_to_create is False or c.value[2]), Master))
+        master_list = list(
+            filter(lambda c: (allowed_to_create is False or c.value[2]), Master)
+        )
         return [x.value[0].value for x in master_list]
 
     @staticmethod

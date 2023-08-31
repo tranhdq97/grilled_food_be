@@ -42,7 +42,9 @@ class ProfileViewSet(
             BaseViewAction.DESTROY: (IsManager | IsSuperStaff,),
             BaseViewAction.RETRIEVE: (IsStaff,),
         }
-        self.permission_classes = perm_switcher.get(self.action, self.permission_classes)
+        self.permission_classes = perm_switcher.get(
+            self.action, self.permission_classes
+        )
         if self.permission_classes is None:
             raise PermissionDenied()
 

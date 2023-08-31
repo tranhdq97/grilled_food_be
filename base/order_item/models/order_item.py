@@ -9,7 +9,9 @@ from base.order.models.order import Order
 
 
 class OrderItem(DateTimeModel, Creator, Editor):
-    order = models.ForeignKey(Order, on_delete=models.RESTRICT, related_name=DBTable.ORDER_ITEM)
+    order = models.ForeignKey(
+        Order, on_delete=models.RESTRICT, related_name=DBTable.ORDER_ITEM
+    )
     item = ForeignKey(Item, on_delete=models.RESTRICT, related_name=DBTable.ITEM)
     quantity = models.IntegerField()
 

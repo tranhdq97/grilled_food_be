@@ -54,7 +54,9 @@ class ItemViewSet(
             BaseViewAction.UPDATE: (IsManager | IsSuperStaff,),
             BaseViewAction.DESTROY: (IsSuperStaff,),
         }
-        self.permission_classes = perm_switcher.get(self.action, self.permission_classes)
+        self.permission_classes = perm_switcher.get(
+            self.action, self.permission_classes
+        )
         if self.permission_classes is None:
             raise PermissionDenied()
 

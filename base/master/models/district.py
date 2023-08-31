@@ -10,7 +10,9 @@ from base.master.models.city import MasterCity
 
 class MasterDistrict(MasterBaseModel):
     name = models.CharField(max_length=32, unique=False)
-    city = ForeignKey(MasterCity, on_delete=models.RESTRICT, related_name=DBTable.MASTER_DISTRICT)
+    city = ForeignKey(
+        MasterCity, on_delete=models.RESTRICT, related_name=DBTable.MASTER_DISTRICT
+    )
     zipcode = models.CharField(max_length=10, null=True)
 
     class Meta:
